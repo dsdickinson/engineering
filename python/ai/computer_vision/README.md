@@ -29,7 +29,8 @@ _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 ### Get Triton Client/Server bits.
 ```
 > cd ~/git
-> mkdir triton-inference-server; cd triton-inference-server
+> mkdir triton-inference-server
+> cd triton-inference-server
 > git clone -b r24.12 https://github.com/triton-inference-server/server.git
 > git clone -b r24.12 https://github.com/triton-inference-server/client.git
 ```
