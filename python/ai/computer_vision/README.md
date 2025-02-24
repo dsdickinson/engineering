@@ -12,7 +12,7 @@ This network diagram shows the full intended build-out of the required infrastru
 
 ## <ins>System Setup</ins>
 
-_NOTE: All this should happen on the Jetson Orin Nano for this demo script._
+_NOTE: For this demo script, all the following should happen directly on the Jetson Orin Nano Dev Kit._
 
 ### Setup Python Environment.
 ```
