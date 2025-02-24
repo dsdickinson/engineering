@@ -533,6 +533,5 @@ PASS
 Run Triton inference against a video
 ```
 > cd ~/git/engineering/python/ai/computer_vision
-> ./cap_infer_play.py -s videos/
-[video file path/RSTP stream address]
+> ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps
 ```
