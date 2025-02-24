@@ -45,7 +45,7 @@ if source == 0:
     print("Must specify a source.")
     exit(1)
 
-env_file_path = "../shared/.env"
+env_file_path = "shared/.env"
 
 # Load environment variables as a dictionary
 try:
@@ -93,7 +93,7 @@ def load_conf_file(config_file):
                       break; 
    return triton_conf, mqtt_conf, redis_conf, locations_conf, location_code, feed_url
 
-config_file_path = "../shared/config.yaml"
+config_file_path = "shared/config.yaml"
 triton_conf, mqtt_conf, redis_conf, locations_conf, location_code, feed_url = load_conf_file(config_file_path)
 
 print("\nConfig read successful.\n")
