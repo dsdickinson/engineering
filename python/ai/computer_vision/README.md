@@ -8,7 +8,7 @@ The _cap_infer_play.py_ script is going to be part of a bigger tool set, eventua
 
 ## <ins>Network Diagram</ins>
 This network diagram shows the intended build-out of the required infrastructure.<br/><br/>
-![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/884a07f1-39e7-40bd-86b2-e56d1146d181)
+![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/fbed0465-113d-437a-936a-afd45de48051)
 
 ## <ins>System Setup</ins>
 
