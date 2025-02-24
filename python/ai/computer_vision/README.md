@@ -7,7 +7,7 @@ This script runs computer vision inference requests on a Jetson Orin Nano Dev Ki
 The _cap_infer_play.py_ script is going to be part of a bigger tool set, eventually. For now, I just want to demonstrate how object detection inferencing works on my Jetson Orin Nano.
 
 ## <ins>Network Diagram</ins>
-This network diagram shows the full intended build-out of the required infrastructure for the related _cv-infer-py_ project that I have in the works. This demo currently only includes functionality for steps 1-3.<br/><br/>
+This network diagram shows the intended full build-out of the required infrastructure for the related _cv-infer-py_ project that I have in the works. This demo currently only includes functionality for steps 1-3.<br/><br/>
 ![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/fbed0465-113d-437a-936a-afd45de48051)
 
 ## <ins>System Setup</ins>
