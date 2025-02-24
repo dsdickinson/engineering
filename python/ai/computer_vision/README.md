@@ -17,27 +17,29 @@ _NOTE: For this demo script, all the following should happen directly on the Jet
 ### Setup Python Environment.
 ```
 > sudo apt install python3.10-venv
-> cd ~/git
+> cd ~/git/
 > python -m venv infer_env_jetson
 > source infer_env_jetson/bin/activate
-> cd infer_env_jetson
+> cd infer_env_jetson/
+> git clone git@github.com:dsdickinson/engineering.git
+> cd python/ai/computer_vision/
 > sudo apt-get install libhdf5-dev (for hdf5 Python package)
-> pip3 install --upgrade pip setuptools wheel # (will help w/ requirenents.txt installs)
+> pip3 install --upgrade pip setuptools wheel # (will help w/ requirements.txt installs)
 > pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
 ```
 
 ### Get Triton Client/Server bits.
 ```
-> cd ~/git
+> cd ~/git/
 > mkdir triton-inference-server
-> cd triton-inference-server
+> cd triton-inference-server/
 > git clone -b r24.12 https://github.com/triton-inference-server/server.git
 > git clone -b r24.12 https://github.com/triton-inference-server/client.git
 ```
 
 ### Setup Base Triton Models.
 ```
-> cd server/docs/examples
+> cd server/docs/examples/
 > ./fetch_models.sh
 > sudo cp -rf model_repository /models
 ```
@@ -45,9 +47,9 @@ _NOTE: For this demo script, all the following should happen directly on the Jet
 ### Setup object detection model.
 ###### Get the model.
 ```
-> cd ~/git
+> cd ~/git/
 > git clone git@github.com:tensorflow/models.git
-> cd models/research
+> cd models/research/
 > sudo apt install protobuf-compile
 > protoc object_detection/protos/*.proto --python_out=.
 > object_detection/protos/string_int_label_map_pb2.py
@@ -530,7 +532,7 @@ item {
 
 ###### Run a test inference request against an image.
 ```
-> cd ~/git/triton-inference-server/client/src/python/examples
+> cd ~/git/triton-inference-server/client/src/python/examples/
 > ./image_client.py -m densenet_onnx -c 3 -s INCEPTION ../../../../server/qa/images/mug.jpg
 Request 1, batch size 1
     13.916380 (504) = COFFEE MUG
@@ -542,10 +544,7 @@ PASS
 ## <ins>Execution</ins>
 Run Triton inference against a video.
 ```
-> cd ~/git/
-> git clone git@github.com:dsdickinson/engineering.git
-> cd engineering
-> cd ~/git/engineering/python/ai/computer_vision
+> cd ~/git/engineering/python/ai/computer_vision/
 > git lfs fetch --all
 > git lfs pull
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps.mp4
