@@ -14,7 +14,7 @@ This network diagram shows the intended build-out of the required infrastructure
 
 _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 
-### Setup Python Environment
+### Setup Python Environment.
 ```
 > sudo apt install python3.10-venv
 > cd ~/git
@@ -26,7 +26,7 @@ _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 > pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
 ```
 
-### Get Triton Client/Server bits
+### Get Triton Client/Server bits.
 ```
 > cd ~/git
 > mkdir triton-inference-server; cd triton-inference-server
@@ -34,15 +34,15 @@ _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 > git clone -b r24.12 https://github.com/triton-inference-server/client.git
 ```
 
-### Setup Base Triton Models
+### Setup Base Triton Models.
 ```
 > cd server/docs/examples
 > ./fetch_models.sh
 > sudo cp -rf model_repository /models
 ```
 
-### Setup object detection model
-###### Get the model
+### Setup object detection model.
+###### Get the model.
 ```
 > cd ~/git
 > git clone git@github.com:tensorflow/models.git
@@ -55,7 +55,10 @@ _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 > sudo cp -rf object_detection /models
 ```
 
-###### Setup Tensorflow definition file for object detection model
+###### Setup Tensorflow definition file for object detection model.
+<details>
+<summary>config.pbtxt</summary>
+  
 ```
 > sudo vi /models/object_detection/config.pbtxt
 name: "detection"
@@ -96,7 +99,12 @@ output [
   }
 ]
 ```
-###### Add labels file for object detection
+</details>
+
+###### Add labels file for object detection.
+<details>
+<summary>labels.txt</summary>
+
 ```
 > sudo vi /models/object_detection/labels.txt
 item {
@@ -500,6 +508,7 @@ item {
   display_name: "toothbrush"
 }
 ```
+</details>
 
 ### Triton Server
 ##### Start Server
@@ -513,7 +522,7 @@ item {
 > curl -v http://localhost:8000/v2/health/ready
 ```
 
-###### Check model config
+###### Check model config.
 ```
 > curl http://localhost:8000/v2/models/object_detection/config | jq
 ```
@@ -530,7 +539,7 @@ PASS
 ```
 
 # Execution
-Run Triton inference against a video
+Run Triton inference against a video.
 ```
 > cd ~/git/
 > git clone git@github.com:dsdickinson/engineering.git
