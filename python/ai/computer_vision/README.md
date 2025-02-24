@@ -540,3 +540,4 @@ Run Triton inference against a video
 > git lfs pull
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps
 ```
+![Screenshot from 2025-02-24 15-01-55](https://github.com/user-attachments/assets/ebea5dd3-a51b-4a96-90aa-56df03ad2f53)
