@@ -26,7 +26,7 @@ _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 > pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
 ```
 
-Get Triton bits
+### Get Triton Client/Server bits
 ```
 > cd ~/git
 > mkdir triton-inference-server; cd triton-inference-server
