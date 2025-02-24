@@ -55,7 +55,7 @@ _NOTE: For this demo script, all the following should happen directly on the Jet
 ```
 
 #### Fix some object detection model issues.
-We need to fix a couple of things here to make the object detection model work on our system.
+We need to fix a couple of things here to make the object detection model works on our system.
 
 > ISSUE:
 >
