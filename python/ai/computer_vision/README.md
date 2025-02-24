@@ -22,7 +22,7 @@ _NOTE: For this demo script, all the following should happen directly on the Jet
 > source infer_env_jetson/bin/activate
 > cd infer_env_jetson/
 > git clone git@github.com:dsdickinson/engineering.git
-> cd python/ai/computer_vision/
+> cd engineering/python/ai/computer_vision/
 > sudo apt-get install libhdf5-dev (for hdf5 Python package)
 > pip3 install --upgrade pip setuptools wheel # (will help w/ requirements.txt installs)
 > pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
