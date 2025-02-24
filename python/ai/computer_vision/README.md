@@ -6,11 +6,11 @@
 This script runs computer vision inference requests on a Jetson Orin Nano Dev Kit to a local Triton server for video streams, mp4 videos, etc.<br/><br/>
 The _cap_infer_play.py_ script is going to be part of a bigger tool set, eventually. For now, I just want to demonstrate how object detection inferencing works on my Jetson Orin Nano.
 
-## Network Diagram
+## <ins>Network Diagram</ins>
 This network diagram shows the intended build-out of the required infrastructure.<br/><br/>
 ![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/884a07f1-39e7-40bd-86b2-e56d1146d181)
 
-## System Setup
+## <ins>System Setup</ins>
 
 _NOTE: All this should happen on the Jetson Orin Nano for this demo script._
 
@@ -539,7 +539,7 @@ Request 1, batch size 1
 PASS
 ```
 
-# Execution
+## <ins>Execution</ins>
 Run Triton inference against a video.
 ```
 > cd ~/git/
@@ -548,6 +548,6 @@ Run Triton inference against a video.
 > cd ~/git/engineering/python/ai/computer_vision
 > git lfs fetch --all
 > git lfs pull
-> ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps
+> ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps.mp4
 ```
 ![Screenshot from 2025-02-24 15-01-55](https://github.com/user-attachments/assets/ebea5dd3-a51b-4a96-90aa-56df03ad2f53)
