@@ -532,6 +532,10 @@ PASS
 # Execution
 Run Triton inference against a video
 ```
+> cd ~/git/
+> git clone git@github.com:dsdickinson/engineering.git
+> cd engineering
 > cd ~/git/engineering/python/ai/computer_vision
+> git lfs fetch --all
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps
 ```
