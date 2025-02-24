@@ -45,14 +45,58 @@ _NOTE: For this demo script, all the following should happen directly on the Jet
 ```
 
 ### Setup object detection model.
-###### Get the model.
+###### Get the model and compile the .proto files.
 ```
 > cd ~/git/
 > git clone git@github.com:tensorflow/models.git
 > cd models/research/
 > sudo apt install protobuf-compile
 > protoc object_detection/protos/*.proto --python_out=.
-> object_detection/protos/string_int_label_map_pb2.py
+```
+
+#### Fix some object detection model issues.
+We need to fix a couple of things here to make the object detection model work on our system.
+
+> ISSUE:
+>
+> ```
+> ImportError: cannot import name 'string_int_label_map_pb2'
+> ```
+>
+>
+> FIX:<br/>
+> https://github.com/tensorflow/models/issues/6148
+> 
+> Overwrite with a working version of the file.
+> ```
+> > wget -O ~/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/protos/string_int_label_map_pb2.py \
+> https://github.com/datitran/object_detector_app/blob/master/object_detection/protos/string_int_label_map_pb2.py
+> ```
+
+</br>
+
+> ISSUE:
+> ```
+> https://stackoverflow.com/questions/55591437/attributeerror-module-tensorflow-has-no-attribute-gfile
+> Traceback (most recent call last):
+>   File "/home/steve/git/infer_env_jetson/cv-infer-py/gpu/capture/./02_cap_infer.py", line 387, in <module>
+>     category_index = label_map_util.create_category_index_from_labelmap("./labels.txt", use_display_name=True)
+>   File "/home/steve/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py", line 229, in create_category_index_from_labelmap
+>     categories = create_categories_from_labelmap(label_map_path, use_display_name)
+>   File "/home/steve/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py", line 209, in create_categories_from_labelmap
+>     label_map = load_labelmap(label_map_path)
+>   File "/home/steve/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py", line 132, in load_labelmap
+>     with tf.gfile.GFile(path, 'r') as fid:
+> AttributeError: module 'tensorflow' has no attribute 'gfile'. Did you mean: 'fill'?
+> ```
+> FIX:<br/>
+> Change tf.gfile.GFile to tf.io.gfile.GFile.
+> ```
+> > vi ~/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py
+> ```
+
+###### Deploy model
+```
 > cp object_detection/packages/tf2/setup.py .
 > cd ../
 > sudo cp -rf object_detection /models
