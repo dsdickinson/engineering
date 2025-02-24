@@ -537,5 +537,6 @@ Run Triton inference against a video
 > cd engineering
 > cd ~/git/engineering/python/ai/computer_vision
 > git lfs fetch --all
+> git lfs pull
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps
 ```
