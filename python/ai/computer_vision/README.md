@@ -10,18 +10,39 @@ The _cap_infer_play.py_ script is going to be part of a bigger tool set, eventua
 This network diagram shows the intended build-out of the required infrastructure.<br/><br/>
 ![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/884a07f1-39e7-40bd-86b2-e56d1146d181)
 
-
 ## System Setup
 
-### Setup Base Models
-# Get example models
+_NOTE: All this should happen on the Jetson Orin Nano for this demo script._
+
+### Setup Python Environment
+```
+> sudo apt install python3.10-venv
+> cd ~/git
+> python -m venv infer_env_jetson
+> source infer_env_jetson/bin/activate
+> cd infer_env_jetson
+> sudo apt-get install libhdf5-dev (for hdf5 Python package)
+> pip3 install --upgrade pip setuptools wheel # (will help w/ requirenents.txt installs)
+> pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
+```
+
+Get Triton bits
+```
+> cd ~/git
+> mkdir triton-inference-server; cd triton-inference-server
+> git clone -b r24.12 https://github.com/triton-inference-server/server.git
+> git clone -b r24.12 https://github.com/triton-inference-server/client.git
+```
+
+### Setup Base Triton Models
 ```
 > cd server/docs/examples
 > ./fetch_models.sh
 > sudo cp -rf model_repository /models
 ```
+
 ### Setup object detection model
-##### Get model
+###### Get the model
 ```
 > cd ~/git
 > git clone git@github.com:tensorflow/models.git
@@ -75,7 +96,7 @@ output [
   }
 ]
 ```
-##### Add labels file for object detection
+###### Add labels file for object detection
 ```
 > sudo vi /models/object_detection/labels.txt
 item {
@@ -499,10 +520,6 @@ item {
 
 ###### Run a test inference request against an image.
 ```
-> cd ~/git/
-> mkdir triton-inference-server; cd triton-inference-server
-> git clone -b r24.12 https://github.com/triton-inference-server/server.git
-> git clone -b r24.12 https://github.com/triton-inference-server/client.git
 > cd ~/git/triton-inference-server/client/src/python/examples
 > ./image_client.py -m densenet_onnx -c 3 -s INCEPTION ../../../../server/qa/images/mug.jpg
 Request 1, batch size 1
@@ -513,8 +530,9 @@ PASS
 ```
 
 # Execution
-Run inference against a video
+Run Triton inference against a video
 ```
 > cd ~/git/engineering/python/ai/computer_vision
-> cap_infer_play.py -s [video file path/RSTP stream address]
+> ./cap_infer_play.py -s videos/
+[video file path/RSTP stream address]
 ```
