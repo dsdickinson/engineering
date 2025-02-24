@@ -58,6 +58,7 @@ _NOTE: For this demo, all the following should happen directly on the Jetson Ori
 > cd models/research/
 > sudo apt install protobuf-compile
 > protoc object_detection/protos/*.proto --python_out=.
+> cp object_detection/packages/tf2/setup.py .
 ```
 
 #### Fix some object detection model issues.
@@ -103,8 +104,6 @@ We need to fix a couple of things here to make the object detection model work o
 
 ###### Deploy model
 ```
-> cp object_detection/packages/tf2/setup.py .
-> cd ../
 > sudo cp -rf object_detection /models
 ```
 
