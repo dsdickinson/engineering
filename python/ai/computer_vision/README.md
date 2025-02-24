@@ -21,8 +21,14 @@ _NOTE: For this demo, all the following should happen directly on the Jetson Ori
 > python -m venv infer_env_jetson
 > source infer_env_jetson/bin/activate
 > cd infer_env_jetson/
+```
+### Setup this demo's repo
+```
+> sudo apt-get install git-lfs
 > git clone git@github.com:dsdickinson/engineering.git
 > cd engineering/python/ai/computer_vision/
+> git lfs fetch --all
+> git lfs pull
 > sudo apt-get install libhdf5-dev (for hdf5 Python package)
 > pip3 install --upgrade pip setuptools wheel # (will help w/ requirements.txt installs)
 > pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
@@ -589,8 +595,6 @@ PASS
 Run Triton inference against a video.
 ```
 > cd ~/git/engineering/python/ai/computer_vision/
-> git lfs fetch --all
-> git lfs pull
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps.mp4
 ```
 ![Screenshot from 2025-02-24 15-01-55](https://github.com/user-attachments/assets/ebea5dd3-a51b-4a96-90aa-56df03ad2f53)
