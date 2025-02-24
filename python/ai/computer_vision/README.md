@@ -1,4 +1,4 @@
-***THIS IS A WORK IN PROGRESS.***
+***THIS IS A DEMO OF A WORK IN PROGRESS.***
 
 # cap_infer_play.py
 
