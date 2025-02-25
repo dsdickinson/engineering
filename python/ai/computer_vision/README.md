@@ -16,8 +16,9 @@ _NOTE: For this demo, all the following should happen directly on the Jetson Ori
 
 ### Setup Python Environment.
 ```
+> mkdir ~/git
+> cd ~/git
 > sudo apt install python3.10-venv
-> cd ~/git/
 > python -m venv infer_env_jetson
 > source infer_env_jetson/bin/activate
 > cd infer_env_jetson/
@@ -590,7 +591,7 @@ Request 1, batch size 1
 PASS
 ```
 
-## <ins>Execution</ins>
+## <ins>Demo Execution</ins>
 Run Triton inference against a video.
 ```
 > cd ~/git/engineering/python/ai/computer_vision/
