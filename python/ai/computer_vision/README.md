@@ -564,12 +564,12 @@ item {
 </details>
 
 ### Triton Server
-##### Start Server
+##### Start server
 ```
 > sudo docker run -d --gpus=1 --runtime=nvidia --rm -p8000:8000 -p8001:8001 -p8002:8002 -v/models:/models nvcr.io/nvidia/tritonserver:24.01-py3-igpu tritonserver --model-repository=/models --strict-model-config=false
 ```
 
-##### Triton Server validations
+##### Validations
 ###### Check Triton server is ready.
 ```
 > curl -v http://localhost:8000/v2/health/ready
@@ -592,7 +592,7 @@ PASS
 ```
 
 ## <ins>Demo Execution</ins>
-Run Triton inference against a video.
+Run Triton inference against a test video.
 ```
 > cd ~/git/engineering/python/ai/computer_vision/
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps.mp4
