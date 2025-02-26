@@ -1,3 +1,3 @@
 # Python
 
-Python-related items I've engineered or solved.
+ Python-related content I've engineered or solved.
