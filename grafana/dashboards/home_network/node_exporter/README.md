@@ -1,4 +1,4 @@
-# Home Network - Grafana Node Exporters
+# Grafana - Dashboards - Home Network - Node Exporters
 
 I have written an article on Medium that explains the entire setup process for this. A few details from that article are included below.<br/>
 https://medium.com/beyond-agile-leadership/grafana-monitor-your-home-network-3bfeae3f5885
