@@ -1,4 +1,4 @@
-***THIS IS A WORK IN PROGRESS.***
+***THIS IS A DEMO OF A WORK IN PROGRESS.***
 
 # cap_infer_play.py
 
@@ -6,56 +6,112 @@
 This script runs computer vision inference requests on a Jetson Orin Nano Dev Kit to a local Triton server for video streams, mp4 videos, etc.<br/><br/>
 The _cap_infer_play.py_ script is going to be part of a bigger tool set, eventually. For now, I just want to demonstrate how object detection inferencing works on my Jetson Orin Nano.
 
-## Network Diagram
-This network diagram shows the intended build-out of the required infrastructure.<br/><br/>
-![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/884a07f1-39e7-40bd-86b2-e56d1146d181)
+## <ins>Network Diagram</ins>
+This network diagram shows the intended full build-out of the required infrastructure for the related _cv-infer-py_ project that I have in the works. This demo currently only includes functionality for steps 1-3.<br/><br/>
+![cv_infer_py_backend_diagram_0001 drawio](https://github.com/user-attachments/assets/fbed0465-113d-437a-936a-afd45de48051)
 
-## System Setup
+## <ins>System Setup</ins>
 
-_NOTE: All this should happen on the Jetson Orin Nano for this demo script._
+_NOTE: For this demo, all the following should happen directly on the Jetson Orin Nano Dev Kit._
 
-### Setup Python Environment
+### Setup Python Environment.
 ```
-> sudo apt install python3.10-venv
+> mkdir ~/git
 > cd ~/git
+> sudo apt install python3.10-venv
 > python -m venv infer_env_jetson
 > source infer_env_jetson/bin/activate
-> cd infer_env_jetson
+> cd infer_env_jetson/
+```
+### Setup this demo's repo
+```
+> sudo apt-get install git-lfs
+> git clone git@github.com:dsdickinson/engineering.git
+> cd engineering/python/ai/computer_vision/
+> git lfs fetch --all
+> git lfs pull
 > sudo apt-get install libhdf5-dev (for hdf5 Python package)
-> pip3 install --upgrade pip setuptools wheel # (will help w/ requirenents.txt installs)
+> pip3 install --upgrade pip setuptools wheel # (will help w/ requirements.txt installs)
 > pip3 install -r ./requirements.txt --no-cache-dir > requirements_install.txt
 ```
 
-### Get Triton Client/Server bits
+### Get Triton Client/Server bits.
 ```
-> cd ~/git
-> mkdir triton-inference-server; cd triton-inference-server
+> cd ~/git/
+> mkdir triton-inference-server
+> cd triton-inference-server/
 > git clone -b r24.12 https://github.com/triton-inference-server/server.git
 > git clone -b r24.12 https://github.com/triton-inference-server/client.git
 ```
 
-### Setup Base Triton Models
+### Setup Base Triton Models.
 ```
-> cd server/docs/examples
+> cd server/docs/examples/
 > ./fetch_models.sh
 > sudo cp -rf model_repository /models
 ```
 
-### Setup object detection model
-###### Get the model
+### Setup object detection model.
+###### Get the model and compile the .proto files.
 ```
-> cd ~/git
+> cd ~/git/
 > git clone git@github.com:tensorflow/models.git
-> cd models/research
+> cd models/research/
 > sudo apt install protobuf-compile
 > protoc object_detection/protos/*.proto --python_out=.
-> object_detection/protos/string_int_label_map_pb2.py
 > cp object_detection/packages/tf2/setup.py .
-> cd ../
+```
+
+#### Fix some object detection model issues.
+We need to fix a couple of things here to make the object detection model work on our system.
+
+> ISSUE:
+>
+> ```
+> ImportError: cannot import name 'string_int_label_map_pb2'
+> ```
+>
+>
+> FIX:<br/>
+> https://github.com/tensorflow/models/issues/6148
+> 
+> Overwrite with a working version of the file.
+> ```
+> > wget -O ~/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/protos/string_int_label_map_pb2.py \
+> https://github.com/datitran/object_detector_app/blob/master/object_detection/protos/string_int_label_map_pb2.py
+> ```
+
+</br>
+
+> ISSUE:
+> ```
+> https://stackoverflow.com/questions/55591437/attributeerror-module-tensorflow-has-no-attribute-gfile
+> Traceback (most recent call last):
+>   File "/home/steve/git/infer_env_jetson/cv-infer-py/gpu/capture/./02_cap_infer.py", line 387, in <module>
+>     category_index = label_map_util.create_category_index_from_labelmap("./labels.txt", use_display_name=True)
+>   File "/home/steve/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py", line 229, in create_category_index_from_labelmap
+>     categories = create_categories_from_labelmap(label_map_path, use_display_name)
+>   File "/home/steve/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py", line 209, in create_categories_from_labelmap
+>     label_map = load_labelmap(label_map_path)
+>   File "/home/steve/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py", line 132, in load_labelmap
+>     with tf.gfile.GFile(path, 'r') as fid:
+> AttributeError: module 'tensorflow' has no attribute 'gfile'. Did you mean: 'fill'?
+> ```
+> FIX:<br/>
+> Change tf.gfile.GFile to tf.io.gfile.GFile.
+> ```
+> > vi ~/git/infer_env_jetson/lib/python3.10/site-packages/object_detection/utils/label_map_util.py
+> ```
+
+###### Deploy model
+```
 > sudo cp -rf object_detection /models
 ```
 
-###### Setup Tensorflow definition file for object detection model
+###### Setup Tensorflow definition file for object detection model.
+<details>
+<summary>config.pbtxt</summary>
+  
 ```
 > sudo vi /models/object_detection/config.pbtxt
 name: "detection"
@@ -96,7 +152,12 @@ output [
   }
 ]
 ```
-###### Add labels file for object detection
+</details>
+
+###### Add labels file for object detection.
+<details>
+<summary>labels.txt</summary>
+
 ```
 > sudo vi /models/object_detection/labels.txt
 item {
@@ -500,9 +561,10 @@ item {
   display_name: "toothbrush"
 }
 ```
+</details>
 
 ### Triton Server
-##### Start Server
+##### Start server
 ```
 > sudo docker run -d --gpus=1 --runtime=nvidia --rm -p8000:8000 -p8001:8001 -p8002:8002 -v/models:/models nvcr.io/nvidia/tritonserver:24.01-py3-igpu tritonserver --model-repository=/models --strict-model-config=false
 ```
@@ -513,14 +575,14 @@ item {
 > curl -v http://localhost:8000/v2/health/ready
 ```
 
-###### Check model config
+###### Check model config.
 ```
 > curl http://localhost:8000/v2/models/object_detection/config | jq
 ```
 
 ###### Run a test inference request against an image.
 ```
-> cd ~/git/triton-inference-server/client/src/python/examples
+> cd ~/git/triton-inference-server/client/src/python/examples/
 > ./image_client.py -m densenet_onnx -c 3 -s INCEPTION ../../../../server/qa/images/mug.jpg
 Request 1, batch size 1
     13.916380 (504) = COFFEE MUG
@@ -529,13 +591,10 @@ Request 1, batch size 1
 PASS
 ```
 
-# Execution
-Run Triton inference against a video
+## <ins>Demo Execution</ins>
+Run Triton inference against a test video.
 ```
-> cd ~/git/
-> git clone git@github.com:dsdickinson/engineering.git
-> cd engineering
-> cd ~/git/engineering/python/ai/computer_vision
-> git lfs fetch --all
-> ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps
+> cd ~/git/engineering/python/ai/computer_vision/
+> ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps.mp4
 ```
+![Screenshot from 2025-02-24 15-01-55](https://github.com/user-attachments/assets/ebea5dd3-a51b-4a96-90aa-56df03ad2f53)
