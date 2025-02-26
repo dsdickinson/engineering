@@ -27,7 +27,7 @@ _NOTE: For this demo, all the following should happen directly on the Jetson Ori
 ```
 > sudo apt-get install git-lfs
 > git clone git@github.com:dsdickinson/engineering.git
-> cd engineering/python/ai/computer_vision/
+> cd engineering/python/ai/computer_vision/demo-01/
 > git lfs fetch --all
 > git lfs pull
 > sudo apt-get install libhdf5-dev (for hdf5 Python package)
@@ -594,7 +594,7 @@ PASS
 ## <ins>Demo Execution</ins>
 Run Triton inference against a test video.
 ```
-> cd ~/git/engineering/python/ai/computer_vision/
+> cd ~/git/engineering/python/ai/computer_vision/demo-01/
 > ./cap_infer_play.py -s videos/4791734-hd_1920_1080_30fps.mp4
 ```
 ![Screenshot from 2025-02-24 15-01-55](https://github.com/user-attachments/assets/ebea5dd3-a51b-4a96-90aa-56df03ad2f53)
