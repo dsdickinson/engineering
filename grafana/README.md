@@ -1,3 +1,3 @@
 # Grafana
 
-Grafan related content I have engineered.
+Grafana related content I have engineered.
