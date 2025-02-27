@@ -2,7 +2,7 @@
 
 This directory includes some testing scripts for PyTorch.
 
-test_pytorch.py: View some system values via PyTorch.
+<sub>test_pytorch.py: View some system values via PyTorch.</sub>
 ```
 > test_pytorch.py
 Torch Version: 2.6.0a0+git1eba9b3
